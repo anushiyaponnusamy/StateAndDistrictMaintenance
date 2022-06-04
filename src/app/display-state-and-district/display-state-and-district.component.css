@@ -1,0 +1,56 @@
+.checkicon-color{
+    color:rgb(86, 179, 207)
+}
+.mt20{
+    margin-top:20px ;
+}
+.float-right{
+    float:right ;
+}
+
+span.three{
+    /* background-color: #ff8; */
+    float:right;
+}
+button.addNew{
+    background-color:#39C0ED;
+    color:white;
+    width: 200px !important;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    
+}
+
+mat-form-field {
+   width: 300px;
+    
+}
+mat-form-field.dropdown {
+    width: 220px !important;
+    border-radius: 10px;
+    height: 40px;
+    
+    
+}
+::ng-deep.mat-select-value{
+    color: white;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+.bgColor{
+    background-color: blue;
+    border-radius: 10px;
+    
+    
+}
+input{
+    border: 1px solid #39C0ED;
+    width: 200px !important;
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 0 2px #39C0ED;
+}
