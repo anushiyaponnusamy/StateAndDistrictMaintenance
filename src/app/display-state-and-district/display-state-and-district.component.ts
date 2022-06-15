@@ -12,8 +12,7 @@ export class DisplayStateAndDistrictComponent implements OnInit {
   isAddNewDistrictEnable : boolean = true;
   isSelectAddNewDistrictEnable: boolean = true;
    name : any;
-
-  State:any;
+   State:any;
   District:any;
   SelectedState:any={id:0,name:''}
   SelectedDistrict:any={id:0,name:''}
