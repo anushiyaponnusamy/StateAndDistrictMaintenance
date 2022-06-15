@@ -33,8 +33,6 @@ export class DisplayStateAndDistrictComponent implements OnInit {
 showAll(){
   this.apiService.getAllData().subscribe((res)=>{
     this.State=res.data;
-    // console.log(this.State)
-    // console.log(this.states.name)
   })
 }
 
