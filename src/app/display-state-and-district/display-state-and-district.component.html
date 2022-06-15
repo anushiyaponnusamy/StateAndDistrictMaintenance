@@ -1,100 +1,108 @@
-
-    <div class="bootstrap-wrapper">
-      <div class="container">
-    <!-- <mat-card> -->
+<div class="bootstrap-wrapper">
+  <div class="container">
     <div class="row mt20">
-      <div class="col float-right" ><b>State</b></div>
+      <div class="col float-right"><b>State</b></div>
       <div class="col">
-        <div class="row" >
-        <mat-form-field  class="dropdown bgColor" >
-        <mat-label  for="State"></mat-label>
-        <mat-select   matNativeControl name="SelectedState" 
-        (selectionChange)="onChangeState($event.value);onSelectAddNewDistrictClick();isSelectAddNewDistrictEnable=false;getStateId($event.value)"  
-           disableRipple>
-          <mat-option *ngFor="let states of State"  (click)="onSelectAddNewDistrictClick"  [value]="states.state_id">{{states.name}}</mat-option>
-       
-        </mat-select>
-        
-      </mat-form-field>
-    </div>
-    <div >
-      
-     
-      <button mat-raised-button class="addNew"  (click)="onAddNewStateClick()">Add New</button>
-     
-    </div> 
-    <div>
-      <mat-form-field class="example-full-width" *ngIf="!isAddNewStateEnable">
-        <div >
-      <span >   <input matInput type="text" placeholder="Enter State" name="name" [(ngModel)]="states.name"  ></span>
-          
-           <span class="three ">
-            <a *ngIf="!isAddNewStateEnable" class="mr20 ml20" color="primary"  (click)="onAddNewStateClick()"><mat-icon class="checkicon-color">close</mat-icon></a> 
-           
-        </span> 
-           <span class="three ">
-            <a type="submit"   *ngIf="states.name" (click)="onSubmit();onAddNewStateClick()" ><mat-icon class="checkicon-color">check</mat-icon>  </a> 
-          
-            <a type="submit"   *ngIf="!states.name" class="disabled"><mat-icon class="checkicon-color">check</mat-icon>  </a> 
-            
-          </span>
-         
-        </div>
-        
-        
-    </mat-form-field>
-    
-  </div>
-   
-    </div>
-      <div class="w-100"></div>
-      <div class="col float-right"><b>District</b></div>
-      <div class="col">  
-         <div class="row">
-        <mat-form-field class="dropdown bgColor">
-            <mat-label for="District"></mat-label>
-  
-  <mat-select (click)="onChangeState(districts.state_id);reset()" name="SelectedDistrict" >
-             
-              <mat-option *ngFor="let district of District "  [value]="district.district_id">{{district.name}}</mat-option>
-           
+        <div class="row">
+          <mat-form-field class="dropdown bgColor">
+            <mat-label for="State"></mat-label>
+            <mat-select matNativeControl (selectionChange)="onChangeState($event.value);
+              onSelectAddNewDistrictClick();
+              isSelectAddNewDistrictEnable=false;
+              getStateId($event.value)">
+              <mat-option *ngFor="let states of State" [value]="states.state_id">{{states.name}}</mat-option>
             </mat-select>
           </mat-form-field>
-    </div>
-    <div class="example-button-row"  (click)="onAddNewDistrictClick()">
-      
-     
-      <button mat-raised-button class="addNew"  *ngIf="!isSelectAddNewDistrictEnable" >Add New</button>
-
-    </div> 
-    <div>
-      <mat-form-field   *ngIf="!isAddNewDistrictEnable">
-        <div >
-    
-        <span >  <input matInput placeholder="Enter District" [value]="districts.state_id" [(ngModel)]="districts.name" ></span>
-      <span class="three">
-        
-        <a *ngIf="!isAddNewDistrictEnable" class="mr20 ml20" color="primary" (click)="onAddNewDistrictClick()"><mat-icon class="checkicon-color">close</mat-icon></a> 
-       
-        </span>
-      <span class="three">
-        <a type="submit" ngDefaultControl *ngIf="districts.name" (click)="onSubmitDistrict();onAddNewDistrictClick();districts.state_id"  ><mat-icon class="checkicon-color">check</mat-icon>  </a> 
-        <a type="submit" *ngIf="!districts.name" class="disabled" ><mat-icon class="checkicon-color">check</mat-icon>  </a> 
-      
-        </span>
-      
+        </div>
+        <div>
+          <button mat-raised-button class="addNew" (click)="onAddNewStateClick()">Add New</button>
+        </div>
+        <!-- //input box ,check and close icon -->
+        <div>
+          <mat-form-field class="example-full-width" *ngIf="!isAddNewStateEnable">
+            <div>
+              <span>
+                <input matInput type="text" placeholder="Enter State" name="name" [(ngModel)]="states.name">
+              </span>
+              <span class="three ">
+                <a class="mr20 ml20" color="primary" (click)="onAddNewStateClick()">
+                  <mat-icon class="checkicon-color">close</mat-icon>
+                </a>
+              </span>
+              <span class="three ">
+                 <!-- this works when state name is not null in the input box -->
+                <a type="submit" *ngIf="states.name" (click)="onSubmit(states.name);onAddNewStateClick()">
+                  <mat-icon class="checkicon-color">check</mat-icon>
+                </a>
+                <!-- this works when state name is  null and it disables the click -->
+                <a type="submit" *ngIf="!states.name" class="disabled">
+                  <mat-icon class="checkicon-color">check</mat-icon>
+                </a>
+              </span>
+            </div>
+          </mat-form-field>
+        </div>
       </div>
-    </mat-form-field>
-    
-  </div>
-   
-   </div>
+      <div class="w-100"></div>
+      <!-- district -->
+      <div class="col float-right"><b>District</b></div>
+      <div class="col">
+        <div class="row">
+          <mat-form-field class="dropdown bgColor">
+            <mat-label for="District"></mat-label>
+            <!-- district dropdown -->
+            <mat-select (click)="onChangeState(districts.state_id);">
+
+              <mat-option *ngFor="let district of District " [value]="district.district_id">{{district.name}}
+              </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- district add new button that opens only when a state is selected -->
+        <div class="example-button-row" (click)="onAddNewDistrictClick()">
+
+
+          <button mat-raised-button class="addNew" *ngIf="!isSelectAddNewDistrictEnable">Add New</button>
+
+        </div>
+        <!-- //input box ,check and close icon -->
+        <div>
+          <mat-form-field *ngIf="!isAddNewDistrictEnable">
+            <div>
+
+              <span> <input matInput placeholder="Enter District" [value]="districts.state_id"
+                  [(ngModel)]="districts.name"></span>
+              <span class="three">
+
+                <a class="mr20 ml20" color="primary" (click)="onAddNewDistrictClick()">
+                  <mat-icon class="checkicon-color">close</mat-icon>
+                </a>
+
+              </span>
+              <span class="three">
+                <!-- this works when district name is not null in the input box -->
+                <a type="submit" ngDefaultControl *ngIf="districts.name"
+                  (click)="onSubmitDistrict();onAddNewDistrictClick();">
+                  <mat-icon class="checkicon-color">check</mat-icon>
+                </a>
+                  <!-- this works when district name is  null and it disables the click -->
+                <a type="submit" *ngIf="!districts.name" class="disabled">
+                  <mat-icon class="checkicon-color">check</mat-icon>
+                </a>
+
+              </span>
+
+            </div>
+          </mat-form-field>
+
+        </div>
+
+      </div>
     </div>
 
-   
 
-  <!-- </mat-card> -->
-</div>
-</div>
-   
 
+    <!-- </mat-card> -->
+  </div>
+</div>

@@ -14,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { ApiserviceService } from './service/apiservice.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     HttpClientModule,MatButtonModule,
     MatIconModule,MatCardModule,MatInputModule,MatFormFieldModule
   ],
-  providers: [],
+  providers: [ApiserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
