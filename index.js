@@ -124,8 +124,7 @@ app.post('/saveDistrict',(req,res)=>{
                 if(err){
                     console.log(err);
                 }
-            
-                    res.send({
+            res.send({
                         message:'data inserted'
                     });
              
