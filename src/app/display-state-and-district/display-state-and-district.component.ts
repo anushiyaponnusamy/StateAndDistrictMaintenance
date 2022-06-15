@@ -28,7 +28,6 @@ export class DisplayStateAndDistrictComponent implements OnInit {
   }
   ngOnInit(): void {
     this.showAll();
-    // this.getDistrictByStateId(this.districts.state_id);
   }
 showAll(){
   this.apiService.getAllData().subscribe((res)=>{

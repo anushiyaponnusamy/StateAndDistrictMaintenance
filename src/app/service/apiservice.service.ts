@@ -18,7 +18,6 @@ export class ApiserviceService {
   getAllData():Observable<any>{
     return this.http.get(`${this.apiurl}/state`).pipe()
   }
-  
   // save state
   saveState(data:any):Observable<any>
   {
