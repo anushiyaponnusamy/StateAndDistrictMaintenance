@@ -11,7 +11,7 @@ export class DisplayStateAndDistrictComponent implements OnInit {
   isAddNewStateEnable : boolean = true; // to show and hide the edit button
   isAddNewDistrictEnable : boolean = true;
   isSelectAddNewDistrictEnable: boolean = true;
-name : any;
+   name : any;
 
   State:any;
   District:any;
