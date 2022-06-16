@@ -72,7 +72,6 @@ onSubmitDistrict(){
       
     }
   )
-
   this.districts.name='';
 }
 onAddNewStateClick(){

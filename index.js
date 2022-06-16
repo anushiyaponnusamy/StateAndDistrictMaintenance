@@ -15,7 +15,7 @@ const db=mysql.createConnection({
     database:'statedistrict',
     port:'3306'
 });
-//check db connection
+//check db connection 
 db.connect(err=>{
     if (err){
         console.log(err,'err')

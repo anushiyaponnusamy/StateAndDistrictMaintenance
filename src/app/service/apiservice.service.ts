@@ -24,7 +24,7 @@ export class ApiserviceService {
     return this.http.post(`${this.apiurl}/saveState`,data)
   }
    // save district by using state_id
-   saveDistrict(data:any):Observable<any>
+   saveDistrict(data:any):Observable<any> 
    {
      return this.http.post(`${this.apiurl}/saveDistrict`,data)
    }
