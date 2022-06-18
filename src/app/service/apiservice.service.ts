@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +8,43 @@ import { Observable } from 'rxjs';
 export class ApiserviceService {
 
   constructor(private http:HttpClient) { }
-  // connectfrontend to backend
 
-  apiurl='http://localhost:3000';
+apiurl='http://localhost:3000';
     headers={
     headers:new HttpHeaders({
-    'Content-Type':'application/json'
-  })}
-  getAllData():Observable<any>{
-    return this.http.get(`${this.apiurl}/state`).pipe()
+    'Content-Type':'application/json',
+    'Access-Control-Allow-Origin':'*'
+     })
+}
+getStateByName(state:any):Observable<any>{
+  let statename=state;
+  return this.http.get(`${this.apiurl}/state?name=${statename}`)
+  
+  }
+  getDistrictByName(district:any):Observable<any>{
+    let districtname=district;
+    return this.http.get(`${this.apiurl}/district?name=${districtname}`)
+    
+    }
+  getAllData(){
+    return this.http.get<any>(`${this.apiurl}/state`);
   }
   // save state
-  saveState(data:any):Observable<any>
+  saveState(data:any)
   {
-    return this.http.post(`${this.apiurl}/saveState`,data)
+    return this.http.post<any>(`${this.apiurl}/state`,data);
   }
    // save district by using state_id
-   saveDistrict(data:any):Observable<any> 
+   saveDistrict(data:any) :Observable<any>
    {
-     return this.http.post(`${this.apiurl}/saveDistrict`,data)
+     return this.http.post<any>(`${this.apiurl}/district`,data)
    }
-  getDistrictByStateId(state_id:any):Observable<any>{
-    let state_ids=state_id;
-    return this.http.get(`${this.apiurl}/district/${state_ids}`).pipe()
+  getDistrictByStateId(stateId:any):Observable<any>{
+    let stateIds=stateId;
+    return this.http.get(`${this.apiurl}/district?stateId=${stateIds}`)
+    
+    }
+    getDistrictByFilter(){
+      return this.http.get<any>(`${this.apiurl}/district`);
     }
 }

@@ -6,11 +6,12 @@
         <div class="row">
           <mat-form-field class="dropdown bgColor">
             <mat-label for="State"></mat-label>
-            <mat-select matNativeControl (selectionChange)="onChangeState($event.value);
+            <mat-select matNativeControl [ngModel]="states"  (selectionChange)="onChangeState($event.value);
               onSelectAddNewDistrictClick();
               isSelectAddNewDistrictEnable=false;
               getStateId($event.value)">
-              <mat-option *ngFor="let states of State" [value]="states.state_id">{{states.name}}</mat-option>
+              <!-- <mat-option  *ngFor="let states of State;let i=index" [value]="i+1" class="disabled"> </mat-option> -->
+              <mat-option *ngFor="let states of State" [value]="states.id">{{states.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -51,10 +52,10 @@
           <mat-form-field class="dropdown bgColor">
             <mat-label for="District"></mat-label>
             <!-- district dropdown -->
-            <mat-select (click)="onChangeState(districts.state_id);">
+            
+            <mat-select matNativeControl  (click)="onChangeState(districts.stateId);">
 
-              <mat-option *ngFor="let district of District " [value]="district.district_id">{{district.name}}
-              </mat-option>
+              <mat-option *ngFor="let district of District " [value]="district.id">{{district.name}}</mat-option>
 
             </mat-select>
           </mat-form-field>
@@ -71,7 +72,7 @@
           <mat-form-field *ngIf="!isAddNewDistrictEnable">
             <div>
 
-              <span> <input matInput placeholder="Enter District" [value]="districts.state_id"
+              <span> <input matInput placeholder="Enter District" [value]="districts.stateId"
                   [(ngModel)]="districts.name"></span>
               <span class="three">
 
@@ -83,7 +84,7 @@
               <span class="three">
                 <!-- this works when district name is not null in the input box -->
                 <a type="submit" ngDefaultControl *ngIf="districts.name"
-                  (click)="onSubmitDistrict();onAddNewDistrictClick();">
+                  (click)="onSubmitDistrict(districts.name);onAddNewDistrictClick();">
                   <mat-icon class="checkicon-color">check</mat-icon>
                 </a>
                   <!-- this works when district name is  null and it disables the click -->

@@ -1,0 +1,42 @@
+{
+  "state": [
+    {
+      "name": "TamilNadu",
+      "id": 1
+    },
+    {
+      "name": "Andhra",
+      "id": 2
+    },
+    {
+      "name": "MP",
+      "id": 3
+    },
+    {
+      "name": "Bihar",
+      "id": 4
+    }
+  ],
+  "district": [
+    {
+      "name": "T1",
+      "id": 1,
+      "stateId": 1
+    },
+    {
+      "name": "T2",
+      "id": 2,
+      "stateId": 1
+    },
+    {
+      "name": "T3",
+      "id": 3,
+      "stateId": 1
+    },
+    {
+      "name": "T4",
+      "id": 4,
+      "stateId": 1
+    }
+  ]
+}
