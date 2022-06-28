@@ -1,131 +1,94 @@
-import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
-import { ApiserviceService } from '../service/apiservice.service';
-import { filter } from 'rxjs/operators';
-@Component({
-  selector: 'app-display-state-and-district',
-  templateUrl: './display-state-and-district.component.html',
-  styleUrls: ['./display-state-and-district.component.css']
-})
-export class DisplayStateAndDistrictComponent implements OnInit {
-  isAddNewStateEnable : boolean = true; // to show and hide the edit button
-  isAddNewDistrictEnable : boolean = true;
-  isSelectAddNewDistrictEnable: boolean = true;
- 
-  State:any;
-  District:any;
-  constructor(private apiService:ApiserviceService) { }
-  public states = {
-   name:"",
-   id:0
-  }
-  public districts:any = {
-    name:"",
-    id:"",
-    stateId:""
-  }
-  ngOnInit(): void {
-    this.showAll();
-   
-    // this.onChangeState(this.districts.stateId);
-  }
+    import { ThisReceiver } from '@angular/compiler';
+    import { Component, OnInit, ViewChild } from '@angular/core';
+    import * as _ from 'lodash';
+    import { filter } from 'rxjs/operators';
 
-showAll(){
-  this.apiService.getAllData().subscribe((res:any)=>{
-    this.State=res;
-    console.log(res)
+    @Component({
+      selector: 'app-display-state-and-district',
+      templateUrl: './display-state-and-district.component.html',
+      styleUrls: ['./display-state-and-district.component.css']
+    })
+    export class DisplayStateAndDistrictComponent implements OnInit {
+      
+      isAddNewStateEnable : boolean = true; // to show and hide the edit button
+      isAddNewDistrictEnable : boolean = true;
+      isSelectAddNewDistrictEnable: boolean = true;
+
+      
+      constructor() { }
     
-  },
-  (error) => {
-     throw error; 
-  })
-}
+       state:any;
+       district:any;
+       statelist:any;
+       statename:any;
+       stateId:any;
+       districtlist:any;
+       districtname:any;
+       districtId:any;
+      
+      ngOnInit(): void {
+        this.statelist=[]
+        this.districtlist=[]
+      }
+      
+    submit(){
+      console.log(this.statelist.statename);
 
-
-onSubmit(state:string){
-  this.apiService.getStateByName(state).subscribe((res:any)=>{
-     this.State=res;
-if(this.State?.length==0){
-  
-  this.states.name=state;
-  this.apiService.saveState(this.states).subscribe(
-    (data:any)=>{
-      this.ngOnInit()
-  
-        }
-    //
-  
-  )
-   
-}else{
-  this.ngOnInit()
-}
-  })
-
-
- 
-  this.states.name='';
-
-}
-getStateId(stateIds:number){
-  this.districts.stateId=stateIds;
-
-}
-onSubmitDistrict(district:any){
-
-  console.log(district)
-  console.log(this.districts.stateId)
-  this.apiService.getDistrictByStateId(this.districts.stateId).subscribe((res)=>{
-    this.districts.name=res;
-   
-  })
-  this.apiService.getDistrictByName(district).subscribe((res:any)=>{
-    this.District=res;
-
-if((this.District)?.length==0){
- 
-  this.districts.name=district;
-this.apiService.saveDistrict(this.districts).subscribe(
-  (data:any)=>{
+        this.statelist.push(
+              {statename:this.statelist.statename,
+                stateId:this.statelist.length +1})
+                this.statelist=_.uniqBy(this.statelist,'statename')
+        console.log(this.statelist)
+        this.statelist.statename='';
+        console.log("submit:::this.statelist.statename",this.statelist.statename);
+      
+    }
+    getStateId(stateIds: any){
+      this.statelist.stateId=stateIds;
+      this.districtlist.stateId=stateIds;
+    }
+    submitDistrict(districtnameFromInput: any){
+      
+        this.districtlist.push({districtname:this.districtlist.districtname,stateId:this.statelist.stateId,
+        districtId:this.districtlist.length+1
+      
+      })
+      this.districtlist=_.uniqBy(this.districtlist,'districtname')
+      this.onChangeSelect(this.districtlist.stateId);
+    console.log("submitDistrict:::districtlist.stateId",this.districtlist.stateId)
+      this.districtlist.districtname='';
+      console.log('submit dist',this.districtlist)
+    }
     
-//  this.ngOnInit()
-this.onChangeState(this.districts.stateId)
-  })
-}
- })
- 
-  this.districts.name='';
-}
-onAddNewStateClick(){
-    this.isAddNewStateEnable =!this.isAddNewStateEnable;
-    this.states.name='';
-}
-onAddNewDistrictClick(){
-  this.isAddNewDistrictEnable =!this.isAddNewDistrictEnable;
-  this.districts.name='';
-  // this.ngOnInit()
-}
+    onChangeSelect(stateIds:any){
+      this.districtlist.stateId=stateIds
+    this.district=this.districtlist.filter((i:any) => i.stateId === this.statelist.stateId);
+    console.log("change:::this.district.length>0",this.district.length>0)
+    if(this.district.length>0){
+      console.log("change:::this.district",this.district)
+      return  this.district;
 
-onChangeState(stateId:any){
-  this.ngOnInit()
-  // console.log(stateId)
-  // console.log(this.districts.stateId)
-  this.apiService.getDistrictByStateId(stateId).subscribe(
-   ( res) =>{
-    
-     this.District =res
-     this.ngOnInit()
-     console.log(this.District)
-    
-   }
-  )
- 
-}
+    }else{
+      return this.district;
+    }
+      
 
-onSelectAddNewDistrictClick(){
-  this.isSelectAddNewDistrictEnable =!this.isSelectAddNewDistrictEnable;
-  
-}
+    }
 
- 
-}
+    onAddNewStateClick(){
+        this.isAddNewStateEnable =!this.isAddNewStateEnable;
+        this.statelist.statename='';
+    }
+    onAddNewDistrictClick(){
+      this.isAddNewDistrictEnable =!this.isAddNewDistrictEnable;
+      this.districtlist.districtname='';
+    }
+
+
+    onSelectAddNewDistrictClick(){
+      this.isSelectAddNewDistrictEnable =!this.isSelectAddNewDistrictEnable;
+      
+    }
+
+
+    }
