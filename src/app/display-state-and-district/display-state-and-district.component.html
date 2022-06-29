@@ -6,7 +6,7 @@
         <div class="row">
           <mat-form-field class="dropdown bgColor">
             <mat-label for="State"></mat-label>
-            <mat-select matNativeControl    (selectionChange)="getStateId($event.value);onChangeSelect($event.value);
+            <mat-select matNativeControl    (selectionChange)="getStateId($event.value);onChangeSelect();
               onSelectAddNewDistrictClick();
               isSelectAddNewDistrictEnable=false;
               ">
@@ -55,7 +55,7 @@
             <!-- district dropdown -->
             
             <!-- <mat-select matNativeControl  (click)="change(districtlist.stateId);"> -->
-              <mat-select matNativeControl (click)="onChangeSelect(districtlist.stateId);" >
+              <mat-select matNativeControl (click)="onChangeSelect();" >
               <mat-option *ngFor="let district of district " [value]="district.districtId">{{district.districtname}}</mat-option>
 
             </mat-select>

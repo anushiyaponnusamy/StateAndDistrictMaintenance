@@ -1,7 +1,7 @@
-    import { ThisReceiver } from '@angular/compiler';
-    import { Component, OnInit, ViewChild } from '@angular/core';
+    // import { ThisReceiver } from '@angular/compiler';
+    import { Component, OnInit } from '@angular/core';
     import * as _ from 'lodash';
-    import { filter } from 'rxjs/operators';
+    // import { filter } from 'rxjs/operators';
 
     @Component({
       selector: 'app-display-state-and-district',
@@ -32,15 +32,15 @@
       }
       
     submit(){
-      console.log(this.statelist.statename);
+     
 
         this.statelist.push(
               {statename:this.statelist.statename,
                 stateId:this.statelist.length +1})
                 this.statelist=_.uniqBy(this.statelist,'statename')
-        console.log(this.statelist)
+    
         this.statelist.statename='';
-        console.log("submit:::this.statelist.statename",this.statelist.statename);
+        
       
     }
     getStateId(stateIds: any){
@@ -54,18 +54,13 @@
       
       })
       this.districtlist=_.uniqBy(this.districtlist,'districtname')
-      this.onChangeSelect(this.districtlist.stateId);
-    console.log("submitDistrict:::districtlist.stateId",this.districtlist.stateId)
+      this.onChangeSelect();
       this.districtlist.districtname='';
-      console.log('submit dist',this.districtlist)
     }
     
-    onChangeSelect(stateIds:any){
-      this.districtlist.stateId=stateIds
+    onChangeSelect(){
     this.district=this.districtlist.filter((i:any) => i.stateId === this.statelist.stateId);
-    console.log("change:::this.district.length>0",this.district.length>0)
     if(this.district.length>0){
-      console.log("change:::this.district",this.district)
       return  this.district;
 
     }else{
